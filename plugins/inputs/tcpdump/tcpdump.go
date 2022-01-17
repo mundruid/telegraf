@@ -1,10 +1,11 @@
 package tcpdump
 
 import (
-	"encoding/json"
+	"bufio"
 	"fmt"
-	"github.com/tidwall/gjson"
+	"log"
 	"os"
+	"strings"
 
 	"github.com/influxdata/telegraf"
 	"github.com/influxdata/telegraf/plugins/inputs"
@@ -37,41 +38,52 @@ func (s *Tcpdump) Gather(acc telegraf.Accumulator) error {
 	if err != nil {
 		panic(err)
 	}
-	f, err := os.ReadFile(cdw + "/plugins/inputs/tcpdump/tshark_multilevel.json")
+
+	readFile, err := os.Open(cdw + "/plugins/inputs/tcpdump/tshark.json")
+
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to open file: %s", err)
 	}
 
-	// Unmarshall nested dictionary based on structure of field and tag
-	// static version
-	type data struct {
-		Key1 string `json:"ip.len"`
-		Key2 string `json:"ip.src"`
-	}
-	structdata := new(data)
-	// dynamic version does not work
-	// type data struct {
-	// 	Key1 string
-	// 	Key2 string
-	// }
-	// structdata := data{
-	// 	Key1: `json:"` + s.Field + `"`,
-	// 	Key2: `json:"` + s.Tag + `"`,
-	// }
-	if err := json.Unmarshal([]byte(string(f)), structdata); err != nil {
-		panic(err)
+	fileScanner := bufio.NewScanner(readFile)
+	fileScanner.Split(bufio.ScanLines)
+	var fileTextLines []string
+
+	for fileScanner.Scan() {
+		fileTextLines = append(fileTextLines, fileScanner.Text())
 	}
 
-	// add default telegraf tags
 	tags := make(map[string]string)
-	tags[s.Tag] = structdata.Key2
-
-	// add fields
 	fields := make(map[string]interface{})
-	fields[s.Field] = structdata.Key1
+	for _, line := range fileTextLines {
 
-	fmt.Printf("tcpdump %s %s", fields[s.Field], tags[s.Tag])
-	acc.AddFields("tcpdump", fields, tags)
+		if strings.Contains(line, s.Tag) {
+			// add tags
+			fmt.Printf("Found tag %s\n", line)
+			key_value := strings.Split(line, ": ")
+			fmt.Printf("key_value %s\n", key_value)
+			value := strings.ReplaceAll(key_value[1], " ", "")
+			fmt.Printf("value %s\n", value)
+			tags[s.Tag] = value
+		}
+
+		if strings.Contains(line, s.Field) {
+			// add fields
+			fmt.Printf("Found field %s\n", line)
+			key_value := strings.Split(line, ": ")
+			fmt.Printf("key_value %s\n", key_value)
+			value := strings.ReplaceAll(key_value[1], " ", "")
+			fmt.Printf("value %s\n", value)
+			fields[s.Field] = strings.ReplaceAll(value, `"`, "")
+		}
+
+		if strings.Contains(line, "Timestamps") { // end of packet
+			fmt.Printf("tcpdump %s %s", fields[s.Field], tags[s.Tag])
+			acc.AddFields("tcpdump", fields, tags)
+		}
+	}
+
+	readFile.Close()
 	return nil
 }
 
