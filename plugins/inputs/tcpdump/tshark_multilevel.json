@@ -1,0 +1,149 @@
+{
+	"_index": "packets-2021-12-09",
+	"_type": "pcap_file",
+	"_score": null,
+	"_source": {
+		"layers": {
+			"frame": {
+				"frame.interface_id": "0",
+				"frame.interface_id_tree": {
+					"frame.interface_name": "vethe206e1b"
+				},
+				"frame.encap_type": "1",
+				"frame.time": "Dec  9, 2021 21:07:48.245365083 EST",
+				"frame.offset_shift": "0.000000000",
+				"frame.time_epoch": "1639102068.245365083",
+				"frame.time_delta": "0.000000000",
+				"frame.time_delta_displayed": "0.000000000",
+				"frame.time_relative": "0.000000000",
+				"frame.number": "1",
+				"frame.len": "74",
+				"frame.cap_len": "74",
+				"frame.marked": "0",
+				"frame.ignored": "0",
+				"frame.protocols": "eth:ethertype:ip:tcp"
+			},
+			"eth": {
+				"eth.dst": "02:42:ac:1f:00:03",
+				"eth.dst_tree": {
+					"eth.dst_resolved": "02:42:ac:1f:00:03",
+					"eth.addr": "02:42:ac:1f:00:03",
+					"eth.addr_resolved": "02:42:ac:1f:00:03",
+					"eth.lg": "1",
+					"eth.ig": "0"
+				},
+				"eth.src": "02:42:ac:1f:00:04",
+				"eth.src_tree": {
+					"eth.src_resolved": "02:42:ac:1f:00:04",
+					"eth.addr": "02:42:ac:1f:00:04",
+					"eth.addr_resolved": "02:42:ac:1f:00:04",
+					"eth.lg": "1",
+					"eth.ig": "0"
+				},
+				"eth.type": "0x00000800"
+			},
+			"ip": {
+				"ip.version": "4",
+				"ip.hdr_len": "20",
+				"ip.dsfield": "0x00000000",
+				"ip.dsfield_tree": {
+					"ip.dsfield.dscp": "0",
+					"ip.dsfield.ecn": "0"
+				},
+				"ip.len": "60",
+				"ip.id": "0x00000c98",
+				"ip.flags": "0x00004000",
+				"ip.flags_tree": {
+					"ip.flags.rb": "0",
+					"ip.flags.df": "1",
+					"ip.flags.mf": "0"
+				},
+				"ip.frag_offset": "0",
+				"ip.ttl": "64",
+				"ip.proto": "6",
+				"ip.checksum": "0x0000d5de",
+				"ip.checksum.status": "2",
+				"ip.src": "172.31.0.4",
+				"ip.addr": "172.31.0.3",
+				"ip.src_host": "172.31.0.4",
+				"ip.host": "172.31.0.3",
+				"ip.dst": "172.31.0.3",
+				"ip.dst_host": "172.31.0.3"
+			},
+			"tcp": {
+				"tcp.srcport": "34224",
+				"tcp.dstport": "5432",
+				"tcp.port": "5432",
+				"tcp.stream": "0",
+				"tcp.len": "0",
+				"tcp.seq": "0",
+				"tcp.nxtseq": "0",
+				"tcp.ack": "0",
+				"tcp.hdr_len": "40",
+				"tcp.flags": "0x00000002",
+				"tcp.flags_tree": {
+					"tcp.flags.res": "0",
+					"tcp.flags.ns": "0",
+					"tcp.flags.cwr": "0",
+					"tcp.flags.ecn": "0",
+					"tcp.flags.urg": "0",
+					"tcp.flags.ack": "0",
+					"tcp.flags.push": "0",
+					"tcp.flags.reset": "0",
+					"tcp.flags.syn": "1",
+					"tcp.flags.syn_tree": {
+						"_ws.expert": {
+							"tcp.connection.syn": "",
+							"_ws.expert.message": "Connection establish request (SYN): server port 5432",
+							"_ws.expert.severity": "2097152",
+							"_ws.expert.group": "33554432"
+						}
+					},
+					"tcp.flags.fin": "0",
+					"tcp.flags.str": "Â·Â·Â·Â·Â·Â·Â·Â·Â·Â·SÂ·"
+				},
+				"tcp.window_size_value": "64240",
+				"tcp.window_size": "64240",
+				"tcp.checksum": "0x00005874",
+				"tcp.checksum.status": "2",
+				"tcp.urgent_pointer": "0",
+				"tcp.options": "02:04:05:b4:04:02:08:0a:d2:13:30:b2:00:00:00:00:01:03:03:07",
+				"tcp.options_tree": {
+					"tcp.options.mss": "02:04:05:b4",
+					"tcp.options.mss_tree": {
+						"tcp.option_kind": "2",
+						"tcp.option_len": "4",
+						"tcp.options.mss_val": "1460"
+					},
+					"tcp.options.sack_perm": "04:02",
+					"tcp.options.sack_perm_tree": {
+						"tcp.option_kind": "4",
+						"tcp.option_len": "2"
+					},
+					"tcp.options.timestamp": "08:0a:d2:13:30:b2:00:00:00:00",
+					"tcp.options.timestamp_tree": {
+						"tcp.option_kind": "8",
+						"tcp.option_len": "10",
+						"tcp.options.timestamp.tsval": "3524473010",
+						"tcp.options.timestamp.tsecr": "0"
+					},
+					"tcp.options.nop": "01",
+					"tcp.options.nop_tree": {
+						"tcp.option_kind": "1"
+					},
+					"tcp.options.wscale": "03:03:07",
+					"tcp.options.wscale_tree": {
+						"tcp.option_kind": "3",
+						"tcp.option_len": "3",
+						"tcp.options.wscale.shift": "7",
+						"tcp.options.wscale.multiplier": "128"
+					}
+				},
+				"Timestamps": {
+					"tcp.time_relative": "0.000000000",
+					"tcp.time_delta": "0.000000000"
+				}
+			}
+		}
+	}
+}
